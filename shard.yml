@@ -1,0 +1,18 @@
+name: wc-crystal
+version: 0.1.0
+
+authors:
+  - Hasan BD.DHK <mahmudul.hasan@monstar-lab.com>
+
+targets:
+  wc:
+    main: src/wc-crystal.cr
+
+crystal: 1.6.1
+
+license: MIT
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 1.0.0
