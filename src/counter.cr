@@ -1,8 +1,8 @@
 # module to handle conter functionality
-module Counter
+module Wc::Counter
 
     # interface and default impl
-    abstract class FileitemCounter
+    abstract class FileItemCounter
 
         # construct an object
         def initialize(fc : String)
@@ -11,7 +11,17 @@ module Counter
 
         # Create from filename
         def from_filename(fname : String)
-            FileitemCounter.new fname
+            fcontent = File.read(fname)
+            FileItemCounter.new(fcontent)
+        end
+
+        abstract def count
+    end
+
+    class CharacterCounter < FileItemCounter
+        # impl count
+        def count
+            @file_content.size
         end
     end
 end

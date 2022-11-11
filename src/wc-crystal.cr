@@ -1,4 +1,5 @@
 require "option_parser"
+require "./counter"
 
 # Main driver code for Wc
 module Wc
@@ -26,4 +27,7 @@ module Wc
       exit(1)
     end
   end
+
+  cc = Wc::Counter::CharacterCounter.new ARGF.gets_to_end
+  puts cc.count
 end
