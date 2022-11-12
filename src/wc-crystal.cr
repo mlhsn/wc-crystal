@@ -28,6 +28,7 @@ module Wc
     end
   end
 
-  cc = Wc::Counter::CharacterCounter.new ARGF.gets_to_end
+  # cc = Wc::Counter::CharacterCounter.new ARGF.gets_to_end
+  cc = Wc::Counter::WordCounter.new ARGF.gets_to_end
   puts cc.count
 end

@@ -18,10 +18,23 @@ module Wc::Counter
         abstract def count
     end
 
+    # character counter
     class CharacterCounter < FileItemCounter
+
         # impl count
         def count
             @file_content.size
+        end
+    end
+
+    # word counter
+    class WordCounter < FileItemCounter
+
+        # impl count
+        def count
+            words = [] of String
+            @file_content.strip.split { |str| words << str }
+            words.size
         end
     end
 end
