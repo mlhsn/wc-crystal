@@ -37,8 +37,6 @@ module Wc
     end
   end
 
-  # cc = Wc::Counter::CharacterCounter.new ARGF.gets_to_end
-  # cc = Wc::Counter::WordCounter.new ARGF.gets_to_end
-  cc = Wc::Counter::LineCounter.new ARGF.gets_to_end
-  puts cc.count
+  c = Wc::Counter::FileItemCounter.new(ARGF.gets_to_end)
+  puts "#{c.count_chars}\t#{c.count_words}\t#{c.count_line}"
 end

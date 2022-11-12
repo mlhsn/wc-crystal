@@ -1,8 +1,47 @@
 # module to handle conter functionality
 module Wc::Counter
 
+    # character counter mixin
+    module CharacterCounter
+        abstract def get_content: String
+
+        # impl count
+        def count_chars
+            get_content.size
+        end
+    end
+
+    # word counter mixin
+    module WordCounter
+        abstract def get_content: String
+
+        # impl count
+        def count_words
+            words = [] of String
+            get_content.strip.split { |str| words << str }
+            words.size
+        end
+    end
+
+    # word counter mixin
+    module LineCounter
+        abstract def get_content: String
+
+        # impl count
+        def count_line
+            lines = [] of String
+            get_content.split("\n") { |str| lines << str }
+            lines.size
+        end
+    end
+
     # interface and default impl
-    abstract class FileItemCounter
+    class FileItemCounter
+
+        # include mixins
+        include CharacterCounter
+        include WordCounter
+        include LineCounter
 
         # construct an object
         def initialize(fc : String)
@@ -15,37 +54,8 @@ module Wc::Counter
             FileItemCounter.new(fcontent)
         end
 
-        abstract def count
-    end
-
-    # character counter
-    class CharacterCounter < FileItemCounter
-
-        # impl count
-        def count
-            @fcontent.size
-        end
-    end
-
-    # word counter
-    class WordCounter < FileItemCounter
-
-        # impl count
-        def count
-            words = [] of String
-            @fcontent.strip.split { |str| words << str }
-            words.size
-        end
-    end
-
-    # word counter
-    class LineCounter < FileItemCounter
-
-        # impl count
-        def count
-            lines = [] of String
-            @fcontent.split("\n") { |str| lines << str }
-            lines.size
+        def get_content: String
+            @fcontent
         end
     end
 end
