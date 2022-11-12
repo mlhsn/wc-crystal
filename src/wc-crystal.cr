@@ -3,14 +3,23 @@ require "./counter"
 
 # Main driver code for Wc
 module Wc
-  VERSION = "1.0"
+  # current asked response type
+  asked_response_type: ResponseType = ResponseType::ALL
+
+  # Type of response asked
+  enum ResponseType
+    CHAR
+    WORD
+    LINE
+    ALL
+  end
 
   OptionParser.parse do |parser|
     parser.banner = "Welcome to *nix wc clone. Written in Crystal-lang.org for education."
 
     # Version option
     parser.on "-v", "--version", "Shows version" do
-      puts "version #{VERSION}"
+      puts "version 1.0"
       exit
     end
 
@@ -29,6 +38,7 @@ module Wc
   end
 
   # cc = Wc::Counter::CharacterCounter.new ARGF.gets_to_end
-  cc = Wc::Counter::WordCounter.new ARGF.gets_to_end
+  # cc = Wc::Counter::WordCounter.new ARGF.gets_to_end
+  cc = Wc::Counter::LineCounter.new ARGF.gets_to_end
   puts cc.count
 end
