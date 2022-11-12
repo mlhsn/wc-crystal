@@ -4,7 +4,7 @@ require "./counter"
 # Main driver code for Wc
 module Wc
   # current asked response type
-  asked_response_type: ResponseType = ResponseType::ALL
+  response_opt: ResponseType = ResponseType::ALL
 
   # Type of response asked
   enum ResponseType
@@ -16,6 +16,21 @@ module Wc
 
   OptionParser.parse do |parser|
     parser.banner = "Welcome to *nix wc clone. Written in Crystal-lang.org for education."
+
+    # Show char count
+    parser.on "-c", "--char", "Shows counter for characters" do
+      response_opt = ResponseType::CHAR
+    end
+
+    # # Show word count
+    parser.on "-w", "--word", "Shows counter for words" do
+      response_opt = ResponseType::WORD
+    end
+
+    # # Show line count
+    parser.on "-l", "--line", "Shows counter for lines" do
+      response_opt = ResponseType::LINE
+    end
 
     # Version option
     parser.on "-v", "--version", "Shows version" do
@@ -38,5 +53,18 @@ module Wc
   end
 
   c = Wc::Counter::FileItemCounter.new(ARGF.gets_to_end)
-  puts "#{c.count_chars}\t#{c.count_words}\t#{c.count_line}"
+
+  case response_opt
+
+  when ResponseType::CHAR
+    puts "#{c.count_chars}\r\n"
+
+  when ResponseType::WORD
+    puts "#{c.count_words}\r\n"
+
+  when ResponseType::LINE
+    puts "#{c.count_line}\r\n"
+  else
+    puts "#{c.count_chars}\t#{c.count_words}\t#{c.count_line}\r\n"
+  end
 end
