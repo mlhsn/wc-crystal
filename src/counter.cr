@@ -37,4 +37,15 @@ module Wc::Counter
             words.size
         end
     end
+
+    # word counter
+    class LineCounter < FileItemCounter
+
+        # impl count
+        def count
+            lines = [] of String
+            @fcontent.split("\n") { |str| lines << str }
+            lines.size
+        end
+    end
 end
