@@ -6,7 +6,7 @@ module Wc::Counter
 
         # construct an object
         def initialize(fc : String)
-            @file_content = fc
+            @fcontent = fc
         end
 
         # Create from filename
@@ -23,7 +23,7 @@ module Wc::Counter
 
         # impl count
         def count
-            @file_content.size
+            @fcontent.size
         end
     end
 
@@ -33,7 +33,7 @@ module Wc::Counter
         # impl count
         def count
             words = [] of String
-            @file_content.strip.split { |str| words << str }
+            @fcontent.strip.split { |str| words << str }
             words.size
         end
     end
